@@ -1,12 +1,12 @@
 require("dotenv").config();
 
-    // Load the File Service Package inquirer
+// Load the File Service Package inquirer
 let fs = require("fs");
-    // Load the NPM Package inquirer
+// Load the NPM Package inquirer
 let inquirer = require("inquirer");
-    // Here we incorporate the "request" npm package
+// Here we incorporate the "request" npm package
 let request = require("request");
-    // load the Momentjs npm package
+// load the Momentjs npm package
 var moment = require('moment');
 
 //     // Create a "Prompt" with instructions and questions.
@@ -19,29 +19,29 @@ var moment = require('moment');
 
 let movieName = "";
 
-    // //define object with functions inside it
-    // let liriApp = new object () {
-    //     liriApp.movie-this = function(); {
+// //define object with functions inside it
+// let liriApp = new object () {
+//     liriApp.movie-this = function(); {
 
-    //     },
-    //     liriApp.concert-this = function(); {
+//     },
+//     liriApp.concert-this = function(); {
 
-    //     }
-    // };
+//     }
+// };
 
-                //liriApp[media][title]();
-        // try calling your chosen animal and method from the terminal example: 'node tamagotchi-this dog letInside'
-        // liriApp[media][title]();
+//liriApp[media][title]();
+// try calling your chosen animal and method from the terminal example: 'node tamagotchi-this dog letInside'
+// liriApp[media][title]();
 
 
-    //define function
-let getMovieInfo = function(movieName) {
+//define function
+let getMovieInfo = function (movieName) {
 
-        // We then run the request module on a URL with a JSON
-    request("http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy", function(error, response, movieObject) {
-            // If the request is successful
+    // We then run the request module on a URL with a JSON
+    request("http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy", function (error, response, movieObject) {
+        // If the request is successful
         if (response.statusCode === 200) {
-            console.log("I'm running")
+            //console.log("I'm running")
             //console.log(JSON.parse(movieObject))
             console.log("Chosen Movie: " + JSON.parse(movieObject).Title);
             console.log("Release Year: " + JSON.parse(movieObject).Year);
@@ -56,33 +56,40 @@ let getMovieInfo = function(movieName) {
 };
 
 let choice = process.argv.slice(2);
-    console.log(choice);
+//console.log(choice);
 
 let media = choice[0];
 let title = choice.slice(1);
 
+let index = title.indexOf(/&/g);
 
-    //     // key request for SPOTIFY
-    // fs.readFile( "keys.js", (err, data) => {
-    //     // If there is an error log it.
-    //     if (err) {
-    //         console.log(err);
-    //     }
+if (index !== -1) {
+    title[index] = "%26";
+}
+//console.log(title);
 
-    //"do-what-it-says"
-    //  * It should run `spotify-this-song` for "I Want it That Way," as follows the text in `random.txt`.
-    //  * Edit the text in random.txt to test out the feature for movie-this and my-tweets
+
+//     // key request for SPOTIFY
+// fs.readFile( "keys.js", (err, data) => {
+//     // If there is an error log it.
+//     if (err) {
+//         console.log(err);
+//     }
+
+//"do-what-it-says"
+//  * It should run `spotify-this-song` for "I Want it That Way," as follows the text in `random.txt`.
+//  * Edit the text in random.txt to test out the feature for movie-this and my-tweets
 if (media === "do-what-it-says") {
 
-    fs.readFile( "random.txt", "utf8", (err, random) => {
+    fs.readFile("random.txt", "utf8", (err, random) => {
         let choice = random.split(' ');
-        console.log(choice);
+        //console.log(choice);
 
         let media = choice[0];
-        console.log(media);
+        //console.log(media);
 
         let title = choice.slice(1);
-        console.log(title);
+        //console.log(title);
 
         //title = title.join('');
         // title = title.replace(" ","");
@@ -90,20 +97,20 @@ if (media === "do-what-it-says") {
 
         liriFunction(media, title);
 
-    }); 
+    });
 }
 
-let liriFunction = function(media, title) {
+let liriFunction = function (media, title) {
 
     if (media === "concert-this") {
 
         let artist = title;
-            console.log("Concerts for " + artist);
-            console.log("--------------------------")
+        console.log("Concerts for " + artist);
+        console.log("--------------------------")
         let artistName = "";
 
-            // Loop through all the words in the node argument
-            // And do a little for-loop magic to handle the inclusion of "+"s
+        // Loop through all the words in the node argument
+        // And do a little for-loop magic to handle the inclusion of "+"s
         for (var i = 0; i < artist.length; i++) {
 
             if (i > 0 && i < artist.length) {
@@ -112,23 +119,23 @@ let liriFunction = function(media, title) {
             else {
                 artistName += artist[i];
             }
-            
+
             //console.log(artistName)
 
-                // We then run the request module on a URL with a JSON
-            request("https://rest.bandsintown.com/artists/" + artistName + "/events?app_id=codingbootcamp", function(error, response, concerts) {
+            // We then run the request module on a URL with a JSON
+            request("https://rest.bandsintown.com/artists/" + artistName + "/events?app_id=codingbootcamp", function (error, response, concerts) {
 
-                    // If there were no errors and the response code was 200 (i.e. the request was successful)...
+                // If there were no errors and the response code was 200 (i.e. the request was successful)...
                 if (!error && response.statusCode === 200) {
-                        // Then we print out the list of concerts
+                    // Then we print out the list of concerts
                     //console.log(JSON.parse(concerts));
                     concertObject = JSON.parse(concerts);
-                    
+
                     //FOR LOOP GOES HERE
                     for (var i = 0; i < concertObject.length; i++) {
                         console.log("Venue: " + concertObject[i].venue.name);
                         console.log("Location: " + concertObject[i].venue.city + "," + concertObject[i].venue.region);
-                            // First Time
+                        // First Time
                         let startTime = moment(concertObject[i].datetime, "YYYY-MM-DDTHH:mm:ss")
                         let startTimeF = moment(startTime).format("MM/DD/YYYY")
                         console.log("Date: " + startTimeF);
@@ -140,22 +147,22 @@ let liriFunction = function(media, title) {
     }; // close CONCERT fuctions 
 
     if (media === "movie-this") {
-            // If there is an error log it.
+        // If there is an error log it.
 
-        console.log(title);
+        //console.log(title);
 
-        if(title.length < 1 || title === undefined){
+        if (title.length < 1 || title === undefined) {
 
             movieName = "Mr.+Nobody";
-            
+
             getMovieInfo(movieName);
         }
         else {
 
-                // Loop through all the words in the node argument
-                // And do a little for-loop magic to handle the inclusion of "+"s
+            // Loop through all the words in the node argument
+            // And do a little for-loop magic to handle the inclusion of "+"s
             for (let i = 0; i < title.length; i++) {
-        
+
                 if (i > 0 && i < title.length) {
                     movieName = movieName + "+" + title[i];
                 }
@@ -167,7 +174,7 @@ let liriFunction = function(media, title) {
             //movieName = movieName.replace(/'/g,"");
             //movieName = movieName.replace(/"/g,"");
 
-            console.log(movieName);
+            //console.log(movieName);
 
             getMovieInfo(movieName);
         }; // close movie/no-movie IF statement
