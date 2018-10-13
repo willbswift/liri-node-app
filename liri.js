@@ -29,10 +29,6 @@ let movieName = "";
 //     }
 // };
 
-//liriApp[media][title]();
-// try calling your chosen animal and method from the terminal example: 'node tamagotchi-this dog letInside'
-// liriApp[media][title]();
-
 
 //define function
 let getMovieInfo = function (movieName) {
@@ -47,9 +43,9 @@ let getMovieInfo = function (movieName) {
             console.log("Release Year: " + JSON.parse(movieObject).Year);
             console.log("IMDB rating is: " + JSON.parse(movieObject).imdbRating);
             console.log("Rotten Tomatoes rating is: " + JSON.parse(movieObject).Ratings[1].Value);
-            console.log("Produced primarly in: " + JSON.parse(movieObject).Country);
+            console.log("Produced primarily in: " + JSON.parse(movieObject).Country);
             console.log("Original Language: " + JSON.parse(movieObject).Language);
-            console.log("Plot Sumary: " + JSON.parse(movieObject).Plot);
+            console.log("Plot Summary: " + JSON.parse(movieObject).Plot);
             console.log("Lead Actors: " + JSON.parse(movieObject).Actors);
         }
     });
@@ -67,7 +63,6 @@ if (index !== -1) {
     title[index] = "%26";
 }
 //console.log(title);
-
 
 //     // key request for SPOTIFY
 // fs.readFile( "keys.js", (err, data) => {
@@ -144,7 +139,7 @@ let liriFunction = function (media, title) {
                 } //close if correct response
             }); // close http request
         }; //close loop to generate artist name
-    }; // close CONCERT fuctions 
+    }; // close CONCERT functions 
 
     if (media === "movie-this") {
         // If there is an error log it.
@@ -178,7 +173,7 @@ let liriFunction = function (media, title) {
 
             getMovieInfo(movieName);
         }; // close movie/no-movie IF statement
-    }; // close MOVIE fuctions 
+    }; // close MOVIE functions 
 
 }; // close of liriFunction
 
